@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="MAIN" Id="{34dbeb6e-0188-42c2-aa4f-4993de0a93ee}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	motor_x0 : AxisBase;
+	motor_x1 : AxisBase;	
+	motor_y0 : AxisBase;
+	motor_y1 : AxisBase;
+	motor_z0 : AxisBase;
+	motor_z1 : AxisBase;	
+	motor_a0 : AxisBase;
+	motor_b0 : AxisBase;
+	motor_c0 : AxisBase;
+	motor_d0 : AxisBase;
+	motor_e0 : AxisBase;
+	
+	motor_x_master : AxisBase;
+	motor_y_master : AxisBase;
+	motor_z_master : AxisBase;
+	motor_a_master : AxisBase;
+	motor_b_master : AxisBase;
+	motor_c_master : AxisBase;
+	motor_d_master : AxisBase;
+	motor_e_master : AxisBase;
+	
+	motor_z0_master_offset : AxisBase;
+	motor_z0_multimaster : AxisBase;
+	motor_z1_master_offset : AxisBase;
+	motor_z1_multimaster : AxisBase;
+	emptyAxis1 : AXIS_REF;
+	emptyAxis2 : AXIS_REF;
+
+	gearOutAll: BOOL;
+	n: INT;
+	
+	fbMultiMaster_z0 : MC_GearInMultiMaster;
+	fbPower_multimaster : MC_Power;
+	fbPower_z0_offset : MC_Power;
+	bStartMultiMaster_z0: BOOL;
+	fbGearOutMulti_z0 : MC_GearOut;
+	
+	fbMultiMaster_z1 : MC_GearInMultiMaster;
+	fbPower_multimaster_z1 : MC_Power;
+	fbPower_z1_offset : MC_Power;
+	bStartMultiMaster_z1: BOOL;
+	fbGearOutMulti_z1 : MC_GearOut;
+	
+	
+	geartest : MC_GearIn;
+	
+	fbSystemTime : GETSYSTEMTIME;
+	fileTime        : T_FILETIME;
+
+	sTimeString: STRING(24);
+	ppp: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+ppp := ppp + 1;
+
+
+fbSystemTime(timeLoDW => fileTime.dwLowDateTime, timeHiDW => fileTime.dwHighDateTime );
+sTimeString := SYSTEMTIME_TO_STRING(FILETIME_TO_SYSTEMTIME(fileTime));
+
+FIFOaxis();
+
+IO();
+
+
+motor_x0(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_x1(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_y0(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_y1(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_z0(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_z1(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_a0(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_b0(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_c0(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_d0(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_e0(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+
+motor_x_master(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_y_master(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_z_master(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_a_master(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_b_master(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_c_master(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_d_master(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_e_master(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+
+motor_z0_multimaster(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_z0_master_offset(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_z1_multimaster(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+motor_z1_master_offset(bPower:= , bMoveAbs:= , bMoveVel:= , bPowerStatus=> );
+
+
+
+
+IF fbGearOutMulti_z0.Execute AND NOT fbGearOutMulti_z0.Busy THEN
+	fbGearOutMulti_z0.Execute := FALSE;
+END_IF
+IF fbGearOutMulti_z1.Execute AND NOT fbGearOutMulti_z1.Busy THEN
+	fbGearOutMulti_z1.Execute := FALSE;
+END_IF
+
+IF gearOutAll THEN
+	bStartMultiMaster_z0 := FALSE;
+	bStartMultiMaster_z1 := FALSE;	
+	motor_x0.M_GearOut('motor_x0');
+	motor_x1.M_GearOut('motor_x0');
+	motor_y0.M_GearOut('motor_y0');
+	motor_y1.M_GearOut('motor_y1');
+	motor_z0.M_GearOut('motor_z0');
+	motor_z1.M_GearOut('motor_z0');	
+	motor_a0.M_GearOut('motor_a0');
+	motor_b0.M_GearOut('motor_b0');
+	motor_c0.M_GearOut('motor_c0');
+	motor_d0.M_GearOut('motor_d0');
+	motor_e0.M_GearOut('motor_e0');
+	fbGearOutMulti_z0.Execute := TRUE;	
+	fbGearOutMulti_z1.Execute := TRUE;	
+	gearOutAll := FALSE;
+END_IF
+
+
+
+
+	
+//multimaster, för z0-axel
+
+
+fbMultiMaster_z0(
+	Master1:= motor_z0_master_offset.axis, 
+	Master2:= motor_z_master.axis, 
+	Master3:= emptyAxis1, 
+	Master4:= emptyAxis2, 
+	Slave:= motor_z0_multimaster.axis, 
+	Enable:= bStartMultiMaster_z0, 
+	GearRatio1:= 1, 
+	GearRatio2:= 1, 
+	GearRatio3:= 0, 
+	GearRatio4:= 0, 
+	Acceleration:= , 
+	Deceleration:= , 
+	Jerk:= , 
+	BufferMode:= , 
+	Options:= , 
+	InGear=> , 
+	Busy=> , 
+	Active=> , 
+	CommandAborted=> , 
+	Error=> , 
+	ErrorID=> );
+
+fbPower_multimaster(
+	Axis:= motor_z0_multimaster.axis, 
+	Enable:= TRUE, 
+	Enable_Positive:= TRUE, 
+	Enable_Negative:= TRUE, 
+	Override:= , 
+	BufferMode:= , 
+	Options:= , 
+	Status=> , 
+	Busy=> , 
+	Active=> , 
+	Error=> , 
+	ErrorID=> );
+
+fbPower_z0_offset(
+	Axis:= motor_z0_master_offset.axis, 
+	Enable:= TRUE, 
+	Enable_Positive:= TRUE, 
+	Enable_Negative:= TRUE, 
+	Override:= , 
+	BufferMode:= , 
+	Options:= , 
+	Status=> , 
+	Busy=> , 
+	Active=> , 
+	Error=> , 
+	ErrorID=> );
+
+fbGearOutMulti_z0(
+	Slave:= motor_z0_multimaster.axis, 
+	Execute:= , 
+	Options:= , 
+	Done=> , 
+	Busy=> , 
+	Error=> , 
+	ErrorID=> );
+	
+	
+//multimaster, för z1-axel
+
+
+fbMultiMaster_z1(
+	Master1:= motor_z1_master_offset.axis, 
+	Master2:= motor_z_master.axis, 
+	Master3:= emptyAxis1, 
+	Master4:= emptyAxis2, 
+	Slave:= motor_z1_multimaster.axis, 
+	Enable:= bStartMultiMaster_z1, 
+	GearRatio1:= 1, 
+	GearRatio2:= 1, 
+	GearRatio3:= 0, 
+	GearRatio4:= 0, 
+	Acceleration:= , 
+	Deceleration:= , 
+	Jerk:= , 
+	BufferMode:= , 
+	Options:= , 
+	InGear=> , 
+	Busy=> , 
+	Active=> , 
+	CommandAborted=> , 
+	Error=> , 
+	ErrorID=> );
+
+fbPower_multimaster_z1(
+	Axis:= motor_z1_multimaster.axis, 
+	Enable:= TRUE, 
+	Enable_Positive:= TRUE, 
+	Enable_Negative:= TRUE, 
+	Override:= , 
+	BufferMode:= , 
+	Options:= , 
+	Status=> , 
+	Busy=> , 
+	Active=> , 
+	Error=> , 
+	ErrorID=> );
+
+fbPower_z1_offset(
+	Axis:= motor_z1_master_offset.axis, 
+	Enable:= TRUE, 
+	Enable_Positive:= TRUE, 
+	Enable_Negative:= TRUE, 
+	Override:= , 
+	BufferMode:= , 
+	Options:= , 
+	Status=> , 
+	Busy=> , 
+	Active=> , 
+	Error=> , 
+	ErrorID=> );
+
+fbGearOutMulti_z1(
+	Slave:= motor_z1_multimaster.axis, 
+	Execute:= , 
+	Options:= , 
+	Done=> , 
+	Busy=> , 
+	Error=> , 
+	ErrorID=> );]]></ST>
+    </Implementation>
+    <Method Name="M_GearOutAll" Id="{bb17c711-227c-43ec-b692-8540d154ad6f}">
+      <Declaration><![CDATA[METHOD M_GearOutAll : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[gearOutAll := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="MAIN">
+      <LineId Id="822" Count="1" />
+      <LineId Id="825" Count="0" />
+      <LineId Id="824" Count="0" />
+      <LineId Id="703" Count="8" />
+      <LineId Id="827" Count="0" />
+      <LineId Id="712" Count="2" />
+      <LineId Id="832" Count="0" />
+      <LineId Id="715" Count="16" />
+      <LineId Id="833" Count="1" />
+      <LineId Id="732" Count="6" />
+      <LineId Id="960" Count="1" />
+      <LineId Id="959" Count="0" />
+      <LineId Id="739" Count="2" />
+      <LineId Id="957" Count="0" />
+      <LineId Id="742" Count="0" />
+      <LineId Id="837" Count="0" />
+      <LineId Id="743" Count="2" />
+      <LineId Id="839" Count="0" />
+      <LineId Id="746" Count="5" />
+      <LineId Id="958" Count="0" />
+      <LineId Id="752" Count="69" />
+      <LineId Id="886" Count="61" />
+      <LineId Id="584" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.M_GearOutAll">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

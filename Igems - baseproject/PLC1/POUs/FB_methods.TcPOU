@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_methods" Id="{97d15662-671b-4aec-b908-838048d1d643}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_methods
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	StartIntegration : BOOL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+IF StartIntegration THEN
+	FIFOaxis.M_Integrate();
+	StartIntegration := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <Method Name="M_Integrate" Id="{d58f5ba4-03c5-4fb1-8281-0bc58fcc5113}">
+      <Declaration><![CDATA[{attribute 'TcRpcEnable'}
+METHOD M_Integrate : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+StartIntegration := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_methods">
+      <LineId Id="11" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="12" Count="1" />
+    </LineIds>
+    <LineIds Name="FB_methods.M_Integrate">
+      <LineId Id="6" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

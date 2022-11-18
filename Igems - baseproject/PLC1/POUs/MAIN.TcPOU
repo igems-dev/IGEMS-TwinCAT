@@ -109,11 +109,11 @@ IF gearOutAll THEN
 	bStartMultiMaster_z0 := FALSE;
 	bStartMultiMaster_z1 := FALSE;	
 	motor_x0.M_GearOut('motor_x0');
-	motor_x1.M_GearOut('motor_x0');
+	motor_x1.M_GearOut('motor_x1');
 	motor_y0.M_GearOut('motor_y0');
 	motor_y1.M_GearOut('motor_y1');
 	motor_z0.M_GearOut('motor_z0');
-	motor_z1.M_GearOut('motor_z0');	
+	motor_z1.M_GearOut('motor_z1');	
 	motor_a0.M_GearOut('motor_a0');
 	motor_b0.M_GearOut('motor_b0');
 	motor_c0.M_GearOut('motor_c0');

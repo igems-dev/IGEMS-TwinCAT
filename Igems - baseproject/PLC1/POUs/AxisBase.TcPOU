@@ -35,6 +35,7 @@ VAR
 	HomeSeq: INT;
 	StartHome: BOOL;
 	AxisHomed : BOOL;
+	fbSoeReset : FB_SoEReset;
 	
 	//torque
 	MaxTorque : LREAL;
@@ -373,7 +374,20 @@ fbReset(
 	Busy=> , 
 	Error=> , 
 	ErrorID=> );
-]]></ST>
+
+fbSoeReset(
+	Axis:= axis, 
+	NetId:= , 
+	Execute:= , 
+	Timeout:= , 
+	Busy=> , 
+	Error=> , 
+	AdsErrId=> , 
+	SercosErrId=> );
+
+IF fbSoeReset.Execute AND fbSoeReset.Busy THEN
+	fbSoeReset.Execute := FALSE;
+END_IF]]></ST>
     </Implementation>
     <Method Name="M_GearIn" Id="{dad86f9d-4401-48c1-8e27-b00609e92396}">
       <Declaration><![CDATA[{attribute 'TcRpcEnable'}
@@ -432,6 +446,7 @@ fbGearOut.Execute := TRUE;
     </Method>
     <LineIds Name="AxisBase">
       <LineId Id="907" Count="313" />
+      <LineId Id="1278" Count="12" />
       <LineId Id="427" Count="0" />
     </LineIds>
     <LineIds Name="AxisBase.M_GearIn">

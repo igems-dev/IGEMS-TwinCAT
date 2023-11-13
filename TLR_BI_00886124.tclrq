@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
+	<TargetInfo>
+		<TcTargetDesc>
+			<TargetType>CB6467-WIN 10.0</TargetType>
+			<TargetVersion>
+				<Version>3</Version>
+				<Revision>1</Revision>
+				<Build>4024</Build>
+			</TargetVersion>
+			<TargetFeatures>
+				<Level>CP</Level>
+				<NetId>172.18.235.235.1.1</NetId>
+			</TargetFeatures>
+			<Hardware>
+				<Model>C6030-0070</Model>
+				<SerialNo>000S4OP5</SerialNo>
+				<CPUVersion>0.0</CPUVersion>
+				<Date>0.0.00</Date>
+				<CPUArchitecture>0</CPUArchitecture>
+			</Hardware>
+			<OsImage>
+				<ImageDevice>CB6467</ImageDevice>
+				<ImageVersion>2022-01-0002S</ImageVersion>
+				<ImageLevel>IN-0409-0512-06-1</ImageLevel>
+				<OsName>Windows 10 Enterprise LTSC 2019</OsName>
+				<OsVersion>10.0</OsVersion>
+			</OsImage>
+		</TcTargetDesc>
+	</TargetInfo>
+	<LicenseInfo>
+		<SystemId Level="80" SerialNo="000S4OP5" MacAddress="00010569ff2a">{CE740B15-1699-DE5D-F4EA-C79736539021}</SystemId>
+		<PurchaseOrder><![CDATA[00886124]]></PurchaseOrder>
+		<IssueTime>2022-08-08T13:28:00</IssueTime>
+		<License>
+			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
+			<Name>TC3 PLC</Name>
+			<OrderNo>TC1200</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{520DE751-9DB6-47CB-8240-BD5C466E7E64}</LicenseId>
+			<Name>TC3 NC PTP</Name>
+			<OrderNo>TF5000</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{D3BAA5E2-D7DF-46FC-B537-C52A686A73FF}</LicenseId>
+			<Name>TC3 NC FIFO Axes</Name>
+			<OrderNo>TF5060</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{BF78CFC7-2E63-42C3-8C07-BB6C346BFB8B}</LicenseId>
+			<Name>TC3 NC PTP Axes Pack 25</Name>
+			<OrderNo>TF5010</OrderNo>
+		</License>
+	</LicenseInfo>
+</TcLicenseInfo>

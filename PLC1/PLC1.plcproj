@@ -2,37 +2,31 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{04397a79-1b8e-4909-876d-8f0536ca6cb4}</ProjectGuid>
+    <ProjectGuid>{21c5c07e-81ac-4efd-b7fe-a5153cf15164}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>PLC1</Name>
     <ProgramVersion>3.1.4023.0</ProgramVersion>
-    <Application>{7b49eda2-8b8a-4a6e-a0fb-771afa885044}</Application>
-    <TypeSystem>{655f33a9-e93f-476b-8736-ca3dfe18443c}</TypeSystem>
-    <Implicit_Task_Info>{d4247bc9-8f3c-4a53-b05f-2091a3a0a53d}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{c4be9874-5a88-4c53-969b-0762640f5c65}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{facd4fec-9c2a-4d8b-a7e1-eac53a0e56d1}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{92d5823f-996a-479c-a798-5fcaf71d24d5}</LibraryReferences>
+    <Application>{65d90768-0f23-4619-a0bf-4e477a8e8a2e}</Application>
+    <TypeSystem>{f38856d7-dfdc-4a72-b328-fb3cedc1377e}</TypeSystem>
+    <Implicit_Task_Info>{a10d6101-d38a-47b0-8e0f-1cb4161076d7}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{9a4498a7-5f3c-41c1-a5b1-8e242a43a1a8}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{93165d15-8092-4958-abf9-c7bdd76f8b6d}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{43d42efc-d862-458c-8db5-8c23996c04ae}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\ST_streamOutputs.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AxisBase.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\DigitalOut.TcPOU">
+    <Compile Include="POUs\EtherCatDiagnosis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_Fifo.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_methods.TcPOU">
+    <Compile Include="POUs\fbReadPositionBias.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_SetPositionBiasInNc_v1_10.TcPOU">
@@ -41,13 +35,22 @@
     <Compile Include="POUs\FIFOaxis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FIFOIntegrate.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\IO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\KimtechIO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POU.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\POU_extend.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Recorder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -58,6 +61,10 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="Tc2_EtherCAT">
+      <DefaultResolution>Tc2_EtherCAT, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_EtherCAT</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_MC2">
       <DefaultResolution>Tc2_MC2, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_MC2</Namespace>

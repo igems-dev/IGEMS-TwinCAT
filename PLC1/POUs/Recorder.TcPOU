@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Recorder" Id="{fdb4ad7d-6ad0-4333-b3fc-1fe457939e3a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Recorder
+VAR
+	bRunning 	: BOOL;
+	bGetValues 	: BOOL; //Signal from HMI that we want to read the saved values.
+	//bRecord5axis : BOOL;
+	
+	
+
+	nArrayIndex : INT;
+	nEntryCount : INT; //How many entries exist for HMI to fetch.
+	aPositions	: ARRAY[0..2048] OF LREAL;
+	aCopy		: ARRAY[0..2048] OF LREAL; //HMI will fetch from aCopy and we can continue filling aPositions with new data.
+	
+	nIter		: INT;
+	nIterMax 	: INT;
+	
+	//We don't know what motors the user will or will not have.
+	//So IGEMS CNC sets these pointers to the adress of the motor position it wants to record.
+	pAdresses : ARRAY[0..5] OF POINTER TO LREAL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bGetValues	THEN 
+	nEntryCount := nArrayIndex;
+	nArrayIndex := 0;
+	
+	MEMCPY(destAddr:= ADR(aCopy), srcAddr:= ADR(aPositions), n:= INT_TO_UDINT(8 * nEntryCount)); 
+	bGetValues := FALSE;
+END_IF
+
+
+IF NOT bRunning THEN
+	nArrayIndex := 0;
+	RETURN;
+END_IF
+
+
+
+IF (nArrayIndex > 2048) THEN
+	nArrayIndex := 0; //Wrapover if no one fetched the stored values.
+END_IF
+
+(*
+IF(bRecord5axis) THEN
+	nIterMax := 4;
+ELSE
+	nIterMax := 1;
+END_IF
+*)
+
+
+FOR nIter := 0 TO nIterMax DO
+	//Get the act pos value.
+	IF (pAdresses[nIter] <> 0) THEN 
+		aPositions[nArrayIndex] := pAdresses[nIter]^; //Valid pointer has been set by over ADS, dereference it.
+	ELSE 
+		aPositions[nArrayIndex] := 0.0; //Not a valid pointer, just set the actual postion to 0.0
+	END_IF
+	
+	nArrayIndex := nArrayIndex + 1;  
+END_FOR;	]]></ST>
+    </Implementation>
+    <LineIds Name="Recorder">
+      <LineId Id="18" Count="3" />
+      <LineId Id="23" Count="2" />
+      <LineId Id="149" Count="0" />
+      <LineId Id="26" Count="10" />
+      <LineId Id="208" Count="0" />
+      <LineId Id="191" Count="2" />
+      <LineId Id="195" Count="1" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="209" Count="1" />
+      <LineId Id="184" Count="1" />
+      <LineId Id="198" Count="5" />
+      <LineId Id="207" Count="0" />
+      <LineId Id="189" Count="0" />
+      <LineId Id="38" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

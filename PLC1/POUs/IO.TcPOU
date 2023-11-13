@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="IO" Id="{b459723f-c7a8-4124-82ff-4e9821a86329}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM IO
 VAR
-	DI1 AT %I* : BOOL;	// Reset EMC
+	DI1 AT %I* : BOOL;
 	DI2 AT %I* : BOOL;	
 	DI3 AT %I* : BOOL;
 	DI4 AT %I* : BOOL;	
@@ -19,24 +19,10 @@ VAR
 	DI14 AT %I* : BOOL;
 	DI15 AT %I* : BOOL;
 	DI16 AT %I* : BOOL;
-	DI17 AT %I* : BOOL;
-	DI18 AT %I* : BOOL;
-	DI19 AT %I* : BOOL;
-	DI20 AT %I* : BOOL;
-	DI21 AT %I* : BOOL;
-	DI22 AT %I* : BOOL;
-	DI23 AT %I* : BOOL;
-	DI24 AT %I* : BOOL;
-	DI25 AT %I* : BOOL;
-	DI26 AT %I* : BOOL;
-	DI27 AT %I* : BOOL;
-	DI28 AT %I* : BOOL;
 
 	
-	DOs : ARRAY[1..64] OF DigitalOut;
-	
-	ArrayData1 : ARRAY[0..50] OF ST_streamOutputs;
-	ArrayData2 : ARRAY[0..50] OF ST_streamOutputs;
+	//DOs : ARRAY[1..64] OF DigitalOut;
+
 	
 	AI1 AT %I* : INT;
 	AI2 AT %I* : INT;
@@ -46,39 +32,23 @@ VAR
 	AO2 AT %Q* : INT;
 	AO3 AT %Q* : INT;
 
-	newStreamData: BOOL;
-	cycleCounter2ms: UINT;
-	startStream: BOOL;
-	i: INT;
-	
+
 	counterValue AT %I* : UINT;
-	EMCOK  AT %I*:BOOL;
-	EMCDelayedOK  AT %I*:BOOL;
-	Run  AT %Q* :BOOL:=TRUE;
+	EMCOK  AT %I*:BOOL; //Emergency stop OK.
+	//EMCDelayedOK  AT %I*:BOOL;
+	//Run  AT %Q* :BOOL:=TRUE;
 	AckSaftey  AT %Q*:BOOL;
 	ResetSaftey AT%Q*:BOOL;
 	state: INT;
 	bIsResetting: BOOL;
 	
-	bBlueLight AT  %Q*:BOOL;
-
+	bBlueLight AT%Q*:BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-
-FOR i:= 1 TO 64 DO
-	DOs[i]();
-END_FOR
-
-
-
-
-IF DI1 OR bIsResetting THEN
+      <ST><![CDATA[IF DI1 OR bIsResetting THEN
 	CASE state OF 
-		
-	 0:		Run:=FALSE;
-			AckSaftey:=FALSE;
+	 0:		AckSaftey:=FALSE;
 	 		ResetSaftey:=FALSE;
 			bIsResetting:=TRUE;
 			state:=10;
@@ -88,29 +58,22 @@ IF DI1 OR bIsResetting THEN
 			
 	20: AckSaftey:=FALSE; // Finnished
 		
-		state:=25;
-	25:
-		Run:=TRUE;
 		state:=30;
+	
 	30: ResetSaftey:=TRUE;
 		state:=40;
 	40: // Finnished
-	
 	dI1:= bIsResetting:=FALSE;
 	ResetSaftey:=FALSE;
 	 state:=0;
-	 
-	
 	END_CASE
-
 END_IF
 
-bBlueLight := NOT EMCOK;
-]]></ST>
+bBlueLight := NOT EMCOK;]]></ST>
     </Implementation>
     <LineIds Name="IO">
-      <LineId Id="272" Count="40" />
-      <LineId Id="133" Count="0" />
+      <LineId Id="161" Count="22" />
+      <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

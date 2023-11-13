@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GlobalVariables Crc="1826143761" Id="822b11a5-73c4-4897-a768-d55ee548f804" FileFormatVersion="1.0">
+  <Variable Id="548e3158-9756-46ab-9b33-eb8b3fe98987">
+    <Name>Run</Name>
+    <SourceUsages>
+      <AliasDeviceIoUsage Id="a85341a4-52f8-4161-a5cb-e2723ff2181f">
+        <SdsId>5</SdsId>
+        <ChannelId>1</ChannelId>
+        <FunctionId>1131179973</FunctionId>
+      </AliasDeviceIoUsage>
+    </SourceUsages>
+    <TargetUsages>
+      <GroupPortUsage Id="8e378643-e0a5-4df3-bd28-4ec293655240">
+        <ModelElementId>a36fb0a4-62f0-403b-8315-d55f956b8642</ModelElementId>
+      </GroupPortUsage>
+    </TargetUsages>
+  </Variable>
+</GlobalVariables>

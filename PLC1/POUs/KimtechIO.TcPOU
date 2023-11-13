@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="KimtechIO" Id="{da0a3d06-9f9a-404a-b755-51a2731cd3b4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM KimtechIO
+VAR
+	//Digital inputs
+	REF_X0 				 AT %I* : BOOL;
+	REF_X1 				 AT %I* : BOOL;
+	REF_X2 				 AT %I* : BOOL;
+	REF_X3 				 AT %I* : BOOL;
+	REF_Y0 				 AT %I* : BOOL;	
+	REF_Y1 				 AT %I* : BOOL;
+	REF_Z0 				 AT %I* : BOOL;	
+	REF_Z1				 AT %I* : BOOL;
+	REF_Z2 				 AT %I* : BOOL;
+	REF_Z3 				 AT %I* : BOOL;
+	ResetEmergencyButton AT %I* : BOOL;
+	
+	//Digital outputs
+	bBlueLight AT%Q*:BOOL;
+	
+	//Z1
+	Z1_WaterOn				AT %Q* : BOOL;
+	Z1_AbraOn 				AT %Q* : BOOL;
+	Z1_GreenLed 			AT %Q* : BOOL;
+	Z1_RedOn 				AT %Q* : BOOL;
+	Z1_HeightSensorOn 		AT %Q* : BOOL;
+	Z1_NozzleLightOn		AT %Q* : BOOL;
+	Z1_HeightSensorValue	AT %I* : INT;
+
+	
+
+
+	
+	EMCOK  AT %I*:BOOL; //Emergency stop OK.
+	AckSaftey  AT %Q*:BOOL;
+	ResetSaftey AT%Q*:BOOL;
+	state: INT;
+	bIsResetting: BOOL;
+	
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF ResetEmergencyButton OR bIsResetting THEN
+	CASE state OF 
+	 0:		AckSaftey:=FALSE;
+	 		ResetSaftey:=FALSE;
+			bIsResetting:=TRUE;
+			state:=10;
+	 
+	 10:	AckSaftey:=TRUE;
+	 		state:=20;
+			
+	20: AckSaftey:=FALSE; // Finnished
+		
+		state:=30;
+	
+	30: ResetSaftey:=TRUE;
+		state:=40;
+	40: // Finnished
+	ResetEmergencyButton:= bIsResetting:=FALSE;
+	ResetSaftey:=FALSE;
+	 state:=0;
+	 
+	
+	END_CASE
+
+END_IF
+
+bBlueLight := NOT EMCOK;]]></ST>
+    </Implementation>
+    <LineIds Name="KimtechIO">
+      <LineId Id="84" Count="25" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

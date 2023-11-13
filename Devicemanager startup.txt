@@ -1,0 +1,2 @@
+Path: Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run
+String value: "C:\Windows\SysWOW64\cmd.exe" "/c START /MAX http://localhost/config"

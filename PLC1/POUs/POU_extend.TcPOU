@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="POU_extend" Id="{9c3bf9c5-ce22-4e23-b99d-fa297be233f2}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK POU_extend EXTENDS AxisBase
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbReadMotorTemp: FB_SoEReadMotorTemperature;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbReadMotorTemp(
+	Axis :=axis,
+	NetId := ,
+	Execute := ,
+	Timeout := ,
+	Busy => ,
+	Error => ,
+	AdsErrId => ,
+	SercosErrId => ,
+	MotorTemperature =>,
+	Attribute => );]]></ST>
+    </Implementation>
+    <LineIds Name="POU_extend">
+      <LineId Id="25" Count="9" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

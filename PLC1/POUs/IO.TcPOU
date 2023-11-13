@@ -3,6 +3,8 @@
   <POU Name="IO" Id="{b459723f-c7a8-4124-82ff-4e9821a86329}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM IO
 VAR
+	//Link you hardware IO to these variables.
+	//You can rename these variables as you like.
 	DI1 AT %I* : BOOL;
 	DI2 AT %I* : BOOL;	
 	DI3 AT %I* : BOOL;
@@ -21,8 +23,13 @@ VAR
 	DI16 AT %I* : BOOL;
 
 	
-	//DOs : ARRAY[1..64] OF DigitalOut;
-
+	DO1 AT %Q* : BOOL;
+	DO2 AT %Q* : BOOL;
+	DO3 AT %Q* : BOOL;
+	DO4 AT %Q* : BOOL;
+	DO5 AT %Q* : BOOL;
+	DO6 AT %Q* : BOOL;
+	DO7 AT %Q* : BOOL;	
 	
 	AI1 AT %I* : INT;
 	AI2 AT %I* : INT;
@@ -32,47 +39,13 @@ VAR
 	AO2 AT %Q* : INT;
 	AO3 AT %Q* : INT;
 
-
-	counterValue AT %I* : UINT;
 	EMCOK  AT %I*:BOOL; //Emergency stop OK.
-	//EMCDelayedOK  AT %I*:BOOL;
-	//Run  AT %Q* :BOOL:=TRUE;
-	AckSaftey  AT %Q*:BOOL;
-	ResetSaftey AT%Q*:BOOL;
-	state: INT;
-	bIsResetting: BOOL;
-	
-	bBlueLight AT%Q*:BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF DI1 OR bIsResetting THEN
-	CASE state OF 
-	 0:		AckSaftey:=FALSE;
-	 		ResetSaftey:=FALSE;
-			bIsResetting:=TRUE;
-			state:=10;
-	 
-	 10:	AckSaftey:=TRUE;
-	 		state:=20;
-			
-	20: AckSaftey:=FALSE; // Finnished
-		
-		state:=30;
-	
-	30: ResetSaftey:=TRUE;
-		state:=40;
-	40: // Finnished
-	dI1:= bIsResetting:=FALSE;
-	ResetSaftey:=FALSE;
-	 state:=0;
-	END_CASE
-END_IF
-
-bBlueLight := NOT EMCOK;]]></ST>
+      <ST><![CDATA[//All IO logic is handled by IGEMS CNC.]]></ST>
     </Implementation>
     <LineIds Name="IO">
-      <LineId Id="161" Count="22" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

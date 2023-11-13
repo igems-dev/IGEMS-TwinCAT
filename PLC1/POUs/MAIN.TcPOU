@@ -3,6 +3,9 @@
   <POU Name="MAIN" Id="{34dbeb6e-0188-42c2-aa4f-4993de0a93ee}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	//Variables of type AXIS_REF to your motors.
+	//Add more motors if you need to.
+	
 	motor_x0 : AxisBase;
 	motor_y0 : AxisBase;
 	motor_z0 : AxisBase;
@@ -12,8 +15,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//FIFOaxis();
-motor_x0();
+      <ST><![CDATA[motor_x0();
 motor_y0();
 motor_z0();
                     
@@ -26,7 +28,6 @@ Recorder();
 EtherCatDiagnosis();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="5" Count="0" />
       <LineId Id="9" Count="1" />
       <LineId Id="12" Count="0" />
       <LineId Id="53" Count="1" />

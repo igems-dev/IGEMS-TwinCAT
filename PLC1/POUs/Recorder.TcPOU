@@ -22,7 +22,7 @@ VAR
 	pAdresses : ARRAY[0..5] OF POINTER TO LREAL;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF bGetValues	THEN 
+      <ST><![CDATA[IF bGetValues	THEN //Signal that HMI is ready to copy values. Copy values to a second array that HMI can read from.
 	nEntryCount := nArrayIndex;
 	nArrayIndex := 0;
 	
@@ -42,13 +42,6 @@ IF (nArrayIndex > 2048) THEN
 	nArrayIndex := 0; //Wrapover if no one fetched the stored values.
 END_IF
 
-(*
-IF(bRecord5axis) THEN
-	nIterMax := 4;
-ELSE
-	nIterMax := 1;
-END_IF
-*)
 
 
 FOR nIter := 0 TO nIterMax DO
@@ -67,10 +60,6 @@ END_FOR;	]]></ST>
       <LineId Id="23" Count="2" />
       <LineId Id="149" Count="0" />
       <LineId Id="26" Count="10" />
-      <LineId Id="208" Count="0" />
-      <LineId Id="191" Count="2" />
-      <LineId Id="195" Count="1" />
-      <LineId Id="194" Count="0" />
       <LineId Id="209" Count="1" />
       <LineId Id="184" Count="1" />
       <LineId Id="198" Count="5" />

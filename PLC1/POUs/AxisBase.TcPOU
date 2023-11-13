@@ -8,9 +8,6 @@ VAR_OUTPUT
 
 END_VAR
 VAR
-	
-	//bPower : BOOL;
-	//bPowerStatus : BOOL;
 	axis : AXIS_REF;
 	fbPower : MC_Power;
 	bEnablePositiveMovement AT %I* : BOOL := TRUE; //Feed enable in positive direction.
@@ -22,9 +19,7 @@ VAR
 	
 	AxisHomed : BOOL;
 	
-	//torque
 	MaxTorque : LREAL;
-	//MinTorque : LREAL;
 	fbSoEread : FB_SoERead;
 	
 	//reset
@@ -37,9 +32,6 @@ VAR
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[axis.ReadStatus();
-
-//bAxisError:=axis.Status.Error;
-//bAxisDriveError:=axis.Status.DriveDeviceError;
 
 AuxiliaryFunctions(axis);
 
@@ -191,7 +183,8 @@ fbManualBrakeControlAX8000(
       </Implementation>
     </Method>
     <LineIds Name="AxisBase">
-      <LineId Id="1219" Count="22" />
+      <LineId Id="1219" Count="0" />
+      <LineId Id="1223" Count="18" />
       <LineId Id="1326" Count="15" />
       <LineId Id="1367" Count="15" />
       <LineId Id="1396" Count="14" />

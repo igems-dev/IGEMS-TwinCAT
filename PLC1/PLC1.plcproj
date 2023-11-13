@@ -38,16 +38,7 @@
     <Compile Include="POUs\IO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\KimtechIO.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\POU.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\POU_extend.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Recorder.TcPOU">

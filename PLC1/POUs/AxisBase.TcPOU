@@ -10,36 +10,26 @@ END_VAR
 VAR
 	axis : AXIS_REF;
 	fbPower : MC_Power;
+	bEnable : BOOL;
 	bEnablePositiveMovement AT %I* : BOOL := TRUE; //Feed enable in positive direction.
 	bEnableNegativeMovement AT %I* : BOOL := TRUE; //Feed enable in negative direction.
 	
 	fbHome : MC_Home;
-	
-
-	
 	AxisHomed : BOOL;
 	
-	MaxTorque : LREAL;
-	fbSoEread : FB_SoERead;
-	
-	//reset
-	fbReset : MC_Reset;
-	fBias: LREAL;
 	fbSoeReset: FB_SoEReset;
 
-	
 	pActPosAdress : POINTER TO LREAL := 0;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[axis.ReadStatus();
-
-AuxiliaryFunctions(axis);
+      <ST><![CDATA[
+axis.ReadStatus();
 
 
 	
 fbPower(
 	Axis:= axis, 
-	Enable:= , 
+	Enable:= bEnable, //AND IO.EMCOK, 
 	Enable_Positive:= bEnablePositiveMovement, 
 	Enable_Negative:= bEnableNegativeMovement, 
 	Override:= 100, 
@@ -67,26 +57,11 @@ fbHome(
 	Error=> , 
 	ErrorID=> );
 	
-
-fbSoEread(
-Axis:= axis, 
-NetId:= '', 
-Idn:= S_0_IDNs + 82, 
-Element:= 16#40, 
-pDstBuf:= ADR(MaxTorque), 
-BufLen:= SIZEOF(MaxTorque), 
-Execute:= , 
-Timeout:= , 
-Busy=> , 
-Error=> , 
-AdsErrId=> , 
-SercosErrId=> , 
-Attribute=> );
 	
 
 
 IF fbSoeReset.Execute AND fbSoeReset.Busy THEN
-	fbReset.Execute := FALSE;
+	fbSoeReset.Execute := FALSE;
 END_IF
 
 fbSOEReset(
@@ -104,112 +79,17 @@ IF(pActPosAdress = 0) THEN
 	pActPosAdress := ADR(axis.NcToPlc.ActPos);
 END_IF]]></ST>
     </Implementation>
-    <Method Name="AuxiliaryFunctions" Id="{66dbbb86-a765-402b-94ea-bc3bf83ff02b}">
-      <Declaration><![CDATA[METHOD AuxiliaryFunctions : BOOL
-VAR_INPUT
-	axis : AXIS_REF;
-END_VAR
-VAR
-	ReadMotorTemp  : BOOL;
-	//fbBrakeControl : FB_BrakeControl;
-	MotorTemperature: INT;
-	Execute: INT;
-	Timeout: INT;
-	Busy: INT;
-	fbReadMotorTemp: FB_SoEReadMotorTemperature;
-	fbReadAmplifierTemp: FB_SoEReadAmplifierTemperature;
-	
-	fbClearEC : FB_EcMasterFrameStatisticClearTxRxErr;
-	fbManualBrakeControlAX8000 : FB_CoEAX8000BrakeControl;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[
-fbReadMotorTemp(
-	Axis :=axis,
-	NetId := ,
-	Execute := ,
-	Timeout := ,
-	Busy => ,
-	Error => ,
-	AdsErrId => ,
-	SercosErrId => ,
-	MotorTemperature =>,
-	Attribute => );
-	
-fbReadAmplifierTemp(
-	Axis :=axis,
-	NetId := ,
-	Execute := ,
-	Timeout := ,
-	Busy => ,
-	Error => ,
-	AdsErrId => ,
-	SercosErrId => ,
-	AmplifierTemperature =>,
-	Attribute => );
-(*
-IF ReadMotorTemp THEN
-	
-fbBrakeControl(
-
- fbBrakeControl( 
-    Axis            := Axis,
-    Execute         := TRUE,
-    Timeout         := DEFAULT_ADS_TIMEOUT,
-    MotorTemperature => MotorTemperature
- );
- IF NOT fbReadMotorTemp.Busy THEN
-    fbReadMotorTemp(Axis := Axis, Execute := FALSE);
-    ReadMotorTemp := FALSE;
- END_IF
-END_IF 
-*)
-fbClearEC(sNetId := ,
-	nEcMasterDevID := ,
-	bExecute :=,
-	tTimeout:=,
-	bBusy =>,
-	bError=>,
-	nErrId=>);
-	
-fbManualBrakeControlAX8000(
-	Axis := axis,
-	Execute:=,
-	Mode:=,
-	Busy =>,
-	Error=>,
-	ErrorID=>);]]></ST>
-      </Implementation>
-    </Method>
     <LineIds Name="AxisBase">
+      <LineId Id="1642" Count="0" />
       <LineId Id="1219" Count="0" />
-      <LineId Id="1223" Count="18" />
+      <LineId Id="1225" Count="16" />
       <LineId Id="1326" Count="15" />
-      <LineId Id="1367" Count="15" />
+      <LineId Id="1382" Count="0" />
       <LineId Id="1396" Count="14" />
       <LineId Id="1570" Count="0" />
       <LineId Id="1620" Count="0" />
       <LineId Id="1619" Count="0" />
       <LineId Id="1621" Count="1" />
-    </LineIds>
-    <LineIds Name="AxisBase.AuxiliaryFunctions">
-      <LineId Id="68" Count="0" />
-      <LineId Id="34" Count="0" />
-      <LineId Id="69" Count="9" />
-      <LineId Id="80" Count="0" />
-      <LineId Id="82" Count="9" />
-      <LineId Id="81" Count="0" />
-      <LineId Id="10" Count="1" />
-      <LineId Id="28" Count="0" />
-      <LineId Id="31" Count="0" />
-      <LineId Id="30" Count="0" />
-      <LineId Id="12" Count="9" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="35" Count="0" />
-      <LineId Id="37" Count="5" />
-      <LineId Id="36" Count="0" />
-      <LineId Id="44" Count="7" />
     </LineIds>
   </POU>
 </TcPlcObject>

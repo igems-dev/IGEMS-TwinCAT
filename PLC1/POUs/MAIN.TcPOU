@@ -9,7 +9,6 @@ VAR
 	motor_x0 : AxisBase;
 	motor_y0 : AxisBase;
 	motor_z0 : AxisBase;
-	
 	motor_a0 : AxisBase;
 	motor_b0 : AxisBase;
 END_VAR
@@ -18,25 +17,20 @@ END_VAR
       <ST><![CDATA[motor_x0();
 motor_y0();
 motor_z0();
-                    
 motor_a0();
 motor_b0();
 
 
 IO();
-Recorder();
-EtherCatDiagnosis();]]></ST>
+Recorder();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="9" Count="1" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="53" Count="1" />
-      <LineId Id="35" Count="0" />
-      <LineId Id="75" Count="0" />
-      <LineId Id="65" Count="0" />
-      <LineId Id="64" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="50" Count="3" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="48" Count="0" />
       <LineId Id="34" Count="0" />
-      <LineId Id="85" Count="0" />
+      <LineId Id="47" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

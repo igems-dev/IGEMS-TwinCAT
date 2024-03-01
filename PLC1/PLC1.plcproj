@@ -23,18 +23,6 @@
     <Compile Include="POUs\AxisBase.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\EtherCatDiagnosis.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\fbReadPositionBias.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB_SetPositionBiasInNc_v1_10.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FIFOaxis.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\IO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -63,10 +51,6 @@
     <PlaceholderReference Include="Tc2_MC2_Drive">
       <DefaultResolution>Tc2_MC2_Drive, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_MC2_Drive</Namespace>
-    </PlaceholderReference>
-    <PlaceholderReference Include="Tc2_NcFifoAxes">
-      <DefaultResolution>Tc2_NcFifoAxes, * (Beckhoff Automation GmbH)</DefaultResolution>
-      <Namespace>Tc2_NcFifoAxes</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>

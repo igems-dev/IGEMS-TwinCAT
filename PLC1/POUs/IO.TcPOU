@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="IO" Id="{b459723f-c7a8-4124-82ff-4e9821a86329}" SpecialFunc="None">
+  <POU Name="IO" Id="{bd3ef4b5-36ef-4299-8510-24603ab157ac}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM IO
 VAR
 	//Link you hardware IO to these variables.
@@ -43,10 +43,10 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//All IO logic is handled by IGEMS CNC.]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
     <LineIds Name="IO">
-      <LineId Id="2" Count="0" />
+      <LineId Id="5" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

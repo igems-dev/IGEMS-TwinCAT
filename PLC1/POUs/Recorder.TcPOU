@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Recorder" Id="{fdb4ad7d-6ad0-4333-b3fc-1fe457939e3a}" SpecialFunc="None">
+  <POU Name="Recorder" Id="{bb26ffea-783c-49aa-a41a-78c1fea19ac7}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Recorder
 VAR
 	bRunning 	: BOOL;
@@ -56,16 +56,8 @@ FOR nIter := 0 TO nIterMax DO
 END_FOR;	]]></ST>
     </Implementation>
     <LineIds Name="Recorder">
-      <LineId Id="18" Count="3" />
-      <LineId Id="23" Count="2" />
-      <LineId Id="149" Count="0" />
-      <LineId Id="26" Count="10" />
-      <LineId Id="209" Count="1" />
-      <LineId Id="184" Count="1" />
-      <LineId Id="198" Count="5" />
-      <LineId Id="207" Count="0" />
-      <LineId Id="189" Count="0" />
-      <LineId Id="38" Count="0" />
+      <LineId Id="25" Count="30" />
+      <LineId Id="5" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
